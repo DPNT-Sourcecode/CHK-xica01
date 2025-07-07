@@ -50,14 +50,16 @@ public class CheckoutSolution {
 
         int total = 0;
 
+// applying offers
         applyFreeItem(skuCounts, 'E', 2, 'B');
         applyFreeItem(skuCounts, 'N', 3, 'M');
         applyFreeItem(skuCounts, 'R', 3, 'Q');
 
-
+// applying same item offers
         total += computeSameItemFree(skuCounts, 'F', 2, skuPrices.get('F'));
         total += computeSameItemFree(skuCounts, 'U', 3, skuPrices.get('U'));
 
+// applying multi item offers
         total += applyMultiPrice(skuCounts, 'A', new int[][] {{5, 200}, {3, 130}}, skuPrices);
 
         total += applyMultiPrice(skuCounts, 'B', new int[][] {{2, 45}}, skuPrices);
@@ -84,6 +86,7 @@ public class CheckoutSolution {
 
     }
 
+//applies mulitbuy offers with best first
     private int applyMultiPrice(Map<Character, Integer> skuCounts, char item, int [][] offers, Map<Character, Integer> skuPrices) {
         if (!skuCounts.containsKey(item)) {
             return 0;
@@ -104,6 +107,7 @@ public class CheckoutSolution {
         
     }
 
+//applies free item offers
     private void applyFreeItem(Map<Character, Integer> skuCounts, char trigger, int required, char freeItem) {
         if (!skuCounts.containsKey(trigger)){
             return;
@@ -114,6 +118,7 @@ public class CheckoutSolution {
         skuCounts.put(freeItem, Math.max(0, currentFree - freeCount));
     }
 
+//computes free items for same item offers
     private int computeSameItemFree(Map<Character, Integer> skuCounts, char item, int required, int unitPrice) {
         if (!skuCounts.containsKey(item)) {
             return 0;
@@ -126,6 +131,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
