@@ -1,5 +1,6 @@
 package io.accelerate.solutions.CHK;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +92,7 @@ public class CheckoutSolution {
         if (!skuCounts.containsKey(item)) {
             return 0;
         }
+        Arrays.sort(offers, (a, b) -> b[0] - a[0]);
         int quantity = skuCounts.get(item);
         int total = 0;
 
@@ -131,7 +133,6 @@ public class CheckoutSolution {
     }
 
 }
-
 
 
 
