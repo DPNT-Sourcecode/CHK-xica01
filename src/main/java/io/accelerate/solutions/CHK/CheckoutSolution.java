@@ -85,5 +85,28 @@ public class CheckoutSolution {
         return total;
 
     }
+
+    private void applyFreeItem(Map<Character, Integer> skuCounts, char trigger, int required, char freeItem) {
+        if (!skuCounts.containsKey(trigger)){
+            return; // Trigger item not present
+        }
+        int triggerQuantity = skuCounts.get(trigger);
+        int freeCount = triggerQuantity / required;
+        int currentFree = skuCounts.getOrDefault(freeItem, 0);
+        skuCounts.put(freeItem, Math.max(0, currentFree - freeCount));
+    }
+
+    private int computeSameItemFree(Map<Character, Integer> skuCounts, char item, int required, int unitPrice) {
+        if (!skuCounts.containsKey(item)) {
+            return 0; // Item not present
+        }
+        int quantity = skuCounts.get(item);
+        int groups = quantity / (required + 1);
+        int charged = quantity - groups;
+        skuCounts.remove(item);
+        return charged * unitPrice;
+    }
+
 }
+
 
