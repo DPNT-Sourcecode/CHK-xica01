@@ -149,7 +149,21 @@ public class CheckoutSolution {
             int quantity = skuCounts.getOrDefault(ch, 0);
             for (int i = 0; i < quantity; i++) {
                 allItems.add(ch);
+            }
         }
-    }
+
+        allItems.sort((a, b) -> skuPrices.get(b) - skuPrices.get(a));
+
+        int total = 0;
+        int i = 0;
+
+        while (i + 2 < allItems.size()) {
+            total += 45;
+            for (int j = 0; j < 3; j++) {
+                char used = allItems.get(i++);
+                skuCounts.put(used, skuCounts.get(used) - 1);
+                
+            }
+        }
 
 }
