@@ -1,8 +1,6 @@
 package io.accelerate.solutions.CHK;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
@@ -22,7 +20,7 @@ public class CheckoutSolution {
         skuPrices.put('H', 10);
         skuPrices.put('I', 35);
         skuPrices.put('J', 60);
-        skuPrices.put('K', 80);
+        skuPrices.put('K', 70);
         skuPrices.put('L', 90);
         skuPrices.put('M', 15);
         skuPrices.put('N', 40);
@@ -30,14 +28,14 @@ public class CheckoutSolution {
         skuPrices.put('P', 50);
         skuPrices.put('Q', 30);
         skuPrices.put('R', 50);
-        skuPrices.put('S', 30);
+        skuPrices.put('S', 20);
         skuPrices.put('T', 20);
         skuPrices.put('U', 40);
         skuPrices.put('V', 50);
         skuPrices.put('W', 20);
-        skuPrices.put('X', 90);
-        skuPrices.put('Y', 10);
-        skuPrices.put('Z', 50);
+        skuPrices.put('X', 17);
+        skuPrices.put('Y', 20);
+        skuPrices.put('Z', 21);
 
 //counting all item
         Map<Character, Integer> skuCounts = new HashMap<>();
@@ -67,13 +65,16 @@ public class CheckoutSolution {
 
         total += applyMultiPrice(skuCounts, 'H', new int[][] {{10, 80}, {5, 45}}, skuPrices);
 
-        total += applyMultiPrice(skuCounts, 'K', new int[][] {{2, 150}}, skuPrices);
+        total += applyMultiPrice(skuCounts, 'K', new int[][] {{2, 120}}, skuPrices);
 
         total += applyMultiPrice(skuCounts, 'P', new int[][] {{5, 200}}, skuPrices);
 
         total += applyMultiPrice(skuCounts, 'Q', new int[][] {{3, 80}}, skuPrices);
 
         total += applyMultiPrice(skuCounts, 'V', new int[][] {{3, 130}, {2, 90}}, skuPrices);
+
+
+        total += applyGroupDiscount(skuCounts);
 
         for (char ch : skuPrices.keySet()) {
             if (!skuCounts.containsKey(ch)) {
@@ -130,6 +131,25 @@ public class CheckoutSolution {
         int charged = quantity - groups;
         skuCounts.remove(item);
         return charged * unitPrice;
+    }
+
+//applies group discount offers
+    private int applyGroupDiscount(Map<Character, Integer> skuCounts) {
+        char[] groupItems = {'S', 'T', 'X', 'Y', 'Z'};
+        Map<Character, Integer> skuPrices = Map.of(
+            'S', 20,
+            'T', 20,
+            'X', 17,
+            'Y', 20,
+            'Z', 21
+        );
+
+        List<Character> allItems = new ArrayList<>();
+        for (char ch : groupItems) {
+            int quantity = skuCounts.getOrDefault(ch, 0);
+            for (int i = 0; i < quantity; i++) {
+                allItems.add(ch);
+        }
     }
 
 }
