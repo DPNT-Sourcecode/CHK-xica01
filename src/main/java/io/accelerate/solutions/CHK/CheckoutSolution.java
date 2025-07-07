@@ -40,8 +40,7 @@ public class CheckoutSolution {
 //new f offer
         if (skuCounts.containsKey('F')) {
             int totalF = skuCounts.get('F');
-            int chargeableF = totalF / 3;
-            int freeF = totalF - chargeableF;
+            int chargeableF = totalF - (totalF / 3);
             total += chargeableF * skuPrices.get('F');
         }
 
@@ -67,6 +66,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
