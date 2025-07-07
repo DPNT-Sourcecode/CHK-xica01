@@ -16,6 +16,7 @@ public class CheckoutSolution {
         skuPrices.put('C', 20);
         skuPrices.put('D', 15);
         skuPrices.put('E', 40);
+        skuPrices.put('F', 10);
 
 //counting all item
         Map<Character, Integer> skuCounts = new HashMap<>();
@@ -36,6 +37,14 @@ public class CheckoutSolution {
             skuCounts.put('B', Math.max(0, currentB - freeBs));
         }
 
+//new f offer
+        if (skuCounts.containsKey('F')) {
+            int totalF = skuCounts.get('F');
+            int chargeableF = totalF / 3;
+            int freeF = totalF - chargeableF;
+            total += chargeableF * skuPrices.get('F');
+        }
+
 //apply a offers
         int countA = skuCounts.getOrDefault('A', 0);
         total += (countA / 5) * 200;
@@ -48,7 +57,7 @@ public class CheckoutSolution {
         int countB = skuCounts.getOrDefault('B', 0);
         total += (countB / 2) * 45;
         total += (countB % 2) * skuPrices.get('B');
-        
+
 //regular prices for c, d, e
         total += skuCounts.getOrDefault('C', 0) * skuPrices.get('C');
         total += skuCounts.getOrDefault('D', 0) * skuPrices.get('D');
@@ -58,5 +67,6 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
