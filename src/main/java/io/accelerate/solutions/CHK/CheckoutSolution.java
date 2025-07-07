@@ -1,6 +1,10 @@
 package io.accelerate.solutions.CHK;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CheckoutSolution {
     public Integer checkout(String skus) {
@@ -162,8 +166,12 @@ public class CheckoutSolution {
             for (int j = 0; j < 3; j++) {
                 char used = allItems.get(i++);
                 skuCounts.put(used, skuCounts.get(used) - 1);
-                
+                if (skuCounts.get(used) == 0) {
+                    skuCounts.remove(used);
+                }
             }
         }
 
+        return total;
+    }
 }
