@@ -67,7 +67,7 @@ public class CheckoutSolution {
 
         total += applyMultiPrice(skuCounts, 'H', new int[][] {{10, 80}, {5, 45}}, skuPrices);
 
-        total += applyMultiPrice(skuCounts, 'K', new int[][] {{2, 120}}, skuPrices);
+        total += applyMultiPrice(skuCounts, 'K', new int[][] {{2, 150}}, skuPrices);
 
         total += applyMultiPrice(skuCounts, 'P', new int[][] {{5, 200}}, skuPrices);
 
@@ -133,7 +133,3 @@ public class CheckoutSolution {
     }
 
 }
-
-
-
-
