@@ -50,37 +50,35 @@ public class CheckoutSolution {
 
         int total = 0;
 
-//apply e offer
-        if (skuCounts.containsKey('E')) {
-            int freeBs = skuCounts.get('E') / 2;
-            int currentB = skuCounts.getOrDefault('B', 0);
-            skuCounts.put('B', Math.max(0, currentB - freeBs));
+        applyFreeItem(skuCounts, 'E', 2, 'B');
+        applyFreeItem(skuCounts, 'N', 3, 'M');
+        applyFreeItem(skuCounts, 'R', 3, 'Q');
+
+
+        total += computeSameItemFree(skuCounts, 'F', 2, skuPrices.get('F'));
+        total += computeSameItemFree(skuCounts, 'U', 3, skuPrices.get('U'));
+
+        total += applyMultiPrice(skuCounts, 'A', new int[][] {{5, 200}, {3, 130}}, skuPrices);
+
+        total += applyMultiPrice(skuCounts, 'B', new int[][] {{2, 45}}, skuPrices);
+
+        total += applyMultiPrice(skuCounts, 'H', new int[][] {{10, 80}, {5, 45}}, skuPrices);
+
+        total += applyMultiPrice(skuCounts, 'K', new int[][] {{2, 120}}, skuPrices);
+
+        total += applyMultiPrice(skuCounts, 'P', new int[][] {{5, 200}}, skuPrices);
+
+        total += applyMultiPrice(skuCounts, 'Q', new int[][] {{3, 80}}, skuPrices);
+
+        total += applyMultiPrice(skuCounts, 'V', new int[][] {{3, 130}, {2, 90}}, skuPrices);
+
+        for (char ch : skuPrices.keySet()) {
+            if (!skuCounts.containsKey(ch)) {
+                continue;
+            }
+            total += skuCounts.get(ch) * skuPrices.get(ch);
         }
 
-//new f offer
-        if (skuCounts.containsKey('F')) {
-            int totalF = skuCounts.get('F');
-            int chargeableF = totalF - (totalF / 3);
-            total += chargeableF * skuPrices.get('F');
-        }
-
-//apply a offers
-        int countA = skuCounts.getOrDefault('A', 0);
-        total += (countA / 5) * 200;
-        countA %= 5;
-        total += (countA / 3) * 130;
-        countA %= 3;
-        total += countA * skuPrices.get('A');
-
-//apply b offers
-        int countB = skuCounts.getOrDefault('B', 0);
-        total += (countB / 2) * 45;
-        total += (countB % 2) * skuPrices.get('B');
-
-//regular prices for c, d, e
-        total += skuCounts.getOrDefault('C', 0) * skuPrices.get('C');
-        total += skuCounts.getOrDefault('D', 0) * skuPrices.get('D');
-        total += skuCounts.getOrDefault('E', 0) * skuPrices.get('E');
 
         return total;
 
@@ -128,6 +126,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
