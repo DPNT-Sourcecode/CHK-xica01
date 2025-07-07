@@ -86,9 +86,29 @@ public class CheckoutSolution {
 
     }
 
+    private int applyMultiPrice(Map<Character, Integer> skuCounts, char item, int [][] offers, Map<Character, Integer> skuPrices) {
+        if (!skuCounts.containsKey(item)) {
+            return 0;
+        }
+        int quantity = skuCounts.get(item);
+        int total = 0;
+
+        for (int[] offer : offers) {
+            int numberOfDeals = quantity / offer[0];
+            total += numberOfDeals * offer[1];
+            quantity %= offer[0];
+        }
+
+        
+        total += quantity * skuPrices.get(item);
+        skuCounts.remove(item);
+        return total;
+        
+    }
+
     private void applyFreeItem(Map<Character, Integer> skuCounts, char trigger, int required, char freeItem) {
         if (!skuCounts.containsKey(trigger)){
-            return; // Trigger item not present
+            return;
         }
         int triggerQuantity = skuCounts.get(trigger);
         int freeCount = triggerQuantity / required;
@@ -98,7 +118,7 @@ public class CheckoutSolution {
 
     private int computeSameItemFree(Map<Character, Integer> skuCounts, char item, int required, int unitPrice) {
         if (!skuCounts.containsKey(item)) {
-            return 0; // Item not present
+            return 0;
         }
         int quantity = skuCounts.get(item);
         int groups = quantity / (required + 1);
@@ -108,5 +128,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
