@@ -2,8 +2,8 @@ package io.accelerate.solutions.HLO;
 
 public class HelloSolution {
     public String hello(String friendName) {
-        String greeting = friendName;
-        greeting = "Hello, World!";
+        String greeting = "Hello, "+friendName+"!";
         return greeting;
     }
 }
+
